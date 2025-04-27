@@ -18,7 +18,8 @@ export default function createStore(reducer, initialState) {
       listener();
     }
   }
-  // dispatch({type:Symbol()});
+  //初始化store，骚操作
+  dispatch({type:Symbol()});
   return {
     subscribe,
     getState,
