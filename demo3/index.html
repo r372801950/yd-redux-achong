@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script >
+      console.log('123')
+    </script>
+    <script type="module">
+        import {createStore, combineReducers} from './redux/index.js'
+        import counter from './reducer/counter.js'
+        import info from './reducer/info.js'
+        const reducer = combineReducers({
+          counter,
+          info
+        })//合并reducer
+        let initState = {
+          counter:{
+            count:10,
+          },
+          info:{
+            name: '一灯',
+            description: '冲击4万'
+          },
+        }
+        const store = createStore(reducer, initState)
+        store.subscribe(() => {
+          const state = store.getState();
+          console.log('🍎🍎🍎',state.counter)
+          console.log('🦊🦊🦊',state.info)
+        });
+        store.dispatch({
+          type:'INCREMENT',
+        })
+        store.dispatch({
+          type:'SET_NAME',
+          name:'dog'
+        })
+    </script>
+
+123
+</body>
+</html>
