@@ -15,11 +15,22 @@
         import {createStore, combineReducers} from './redux/index.js'
         import counter from './reducer/counter.js'
         import info from './reducer/info.js'
+        import loggerMiddleware from "./middleware/loggerMiddleware.js";
+        import exceptionTimeMiddleware from "./middleware/exceptionTimeMiddleware.js";
+        import timeMiddleware from "./middleware/timeMiddleware.js";
         const reducer = combineReducers({
           counter,
         })//合并reducer
 
         const store = createStore(reducer)
+        // 初始化中间件，原理是重写store.dispatch
+        const next = store.dispatch
+        const logger = loggerMiddleware(store);
+        const exception = exceptionTimeMiddleware(store);
+        const time = timeMiddleware(store);
+
+        store.dispatch = exception(time(logger(next)));
+
         const next_reducer = combineReducers({
           counter,
           info
