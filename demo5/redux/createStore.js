@@ -18,11 +18,11 @@ export default function createStore(reducer, initialState) {
       listener();
     }
   }
-  // function replaceReducer(nextReducer){
-  //   reducer = nextReducer;
-  //   //换完reducer之后重新dispatch
-  //   dispatch({type:Symbol()});
-  // }
+  function replaceReducer(nextReducer){
+    reducer = nextReducer;
+    //换完reducer之后重新dispatch
+    dispatch({type:Symbol()});
+  }
   //初始化store，骚操作
   dispatch({type:Symbol()});
   return {
